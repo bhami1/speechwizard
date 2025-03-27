@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Speech to Text App{% endblock %}
+
+{% block content %}
+<section class="dashboard-section">
+    <div class="welcome-banner">
+        <h2>👋 Welcome, {{ username }}!</h2>
+        <p>What would you like to do today?</p>
+        <div class="action-buttons">
+            <a href="{{ url_for('upload_audio') }}" class="btn feature-btn">
+                <i class="fas fa-upload"></i> 📤
+                <span>Upload Audio</span>
+            </a>
+            <a href="{{ url_for('record_audio') }}" class="btn feature-btn">
+                <i class="fas fa-microphone"></i> 🎙️
+                <span>Record Audio</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Transcription Sidebar Toggle Button -->
+    <button class="btn toggle-sidebar-btn" onclick="openSidebar()">
+        <i class="fas fa-history"></i> 📜 View Transcription History
+    </button>
+
+    <!-- Transcription Sidebar -->
+    <div id="transcription-sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h3>📄 Your Transcription History</h3>
+            <button class="close-btn" onclick="closeSidebar()">❌</button>
+        </div>
+        <div class="sidebar-content">
+            {% if transcriptions %}
+                <div class="transcription-list">
+                    {% for transcription in transcriptions %}
+                    <div class="transcription-card">
+                        <div class="transcription-header">
+                            <h4>📝 {{ transcription[2] }}</h4>
+                            <span class="transcription-date">📅 {{ transcription[3] }}</span>
+                        </div>
+                        <div class="transcription-content">
+                            <p>{{ transcription[1] }}</p>
+                        </div>
+                        <div class="transcription-actions">
+                            <button class="btn secondary-btn copy-btn" onclick="copyText('{{ transcription[1] }}')">
+                                <i class="fas fa-copy"></i> 📋 Copy
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-file-alt empty-icon"></i> ❌
+                    <p>No transcriptions yet!</p>
+                    <p>Try uploading an audio file or recording your voice. 🎤</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Sidebar Overlay (to close when clicking outside) -->
+    <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+{% endblock %}
+

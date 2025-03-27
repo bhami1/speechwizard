@@ -1,0 +1,924 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* Main styles for SpeechWizard */
+:root {
+  --primary-color: #0088cc;
+  --accent-color: #ff3366;
+  --dark-blue: #0d2c40;
+  --light-blue: #e6f7ff;
+  --text-color: #333;
+  --light-text: #fff;
+  --shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f9fc;
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header styles */
+.app-header {
+  background: linear-gradient(to right, var(--dark-blue), #1a4a6e);
+  padding: 15px 30px;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow);
+}
+
+.logo {
+  color: var(--light-text);
+  font-size: 28px;
+  font-weight: 700;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.logo-icon {
+  margin-right: 10px;
+  font-size: 24px;
+}
+
+.header-actions a {
+  color: var(--light-text);
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+}
+
+.header-actions a i {
+  margin-right: 5px;
+}
+
+/* Upload section styles */
+.upload-section {
+  background: white;
+  border-radius: 0 0 8px 8px;
+  padding: 10px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 90vw; /* Ensures it stays within the viewport */
+  margin: 0 auto;
+  max-height: fit-content;
+  overflow: hidden; /* Prevents content from overflowing */
+}
+
+
+.section-title {
+  text-align: center;
+  color: var(--dark-blue);
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.upload-container {
+  max-width: 90%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.upload-area {
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  text-align: center;
+  transition: all 0.3s ease;
+  background-color: var(--light-blue);
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-area.dragover {
+  border-color: var(--primary-color);
+  background-color: rgba(0, 136, 204, 0.05);
+}
+
+.upload-area.has-file {
+  border-color: var(--primary-color);
+  background-color: rgba(0, 136, 204, 0.1);
+}
+
+.upload-icon {
+  font-size: 48px;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+
+.drag-text {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.or-text {
+  display: block;
+  margin: 15px 0;
+  color: #888;
+  position: relative;
+}
+
+.or-text:before, .or-text:after {
+  content: "";
+  display: inline-block;
+  width: 80px;
+  height: 1px;
+  background: #ddd;
+  margin: 0 10px;
+  vertical-align: middle;
+}
+
+/* Button styles */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.secondary-btn {
+  background-color: white;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+}
+
+.secondary-btn:hover {
+  background-color: rgba(0, 136, 204, 0.1);
+}
+
+.primary-btn {
+  background: linear-gradient(to right, var(--primary-color), #00a0e9);
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
+  margin-top: 30px;
+  width: 100%;
+}
+
+.primary-btn:hover {
+  box-shadow: 0 6px 20px rgba(0, 136, 204, 0.5);
+  transform: translateY(-2px);
+}
+
+/* File info */
+.file-name {
+  margin-top: 20px;
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+.file-size-warning {
+  color: #f44336;
+  display: block;
+  margin-top: 5px;
+}
+
+/* Format info */
+.format-info {
+  margin-top: 30px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 15px;
+  text-align: center;
+}
+
+.format-info h4 {
+  margin-top: 0;
+  color: #555;
+}
+
+.format-info ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.format-info li {
+  padding: 5px 15px;
+  background: var(--light-blue);
+  border-radius: 20px;
+  font-size: 14px;
+  color: var(--primary-color);
+}
+
+/* Animation for the background waveform */
+.wave-bg {
+  position: absolute;
+  bottom: -150px;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  background: url('path-to-your-wave-image.svg') repeat-x;
+  opacity: 0.1;
+  z-index: 0;
+}
+
+.content-area {
+  position: relative;
+  z-index: 1;
+}
+
+/* Footer */
+.app-footer {
+  text-align: center;
+  margin-top: 30px;
+  color: #888;
+  font-size: 14px;
+}
+/* General body styling */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: url('../img/img.jpeg')no-repeat center center/cover;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Header styling */
+header {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo h1 {
+  color: #fff;
+  margin: 0;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin-left: 20px;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.nav-links a i {
+  margin-right: 5px;
+}
+
+/* Container styling */
+.container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Flash messages */
+.flash-messages {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 500px;
+  z-index: 1000;
+}
+
+.flash-message {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.flash-message.success {
+  background-color: rgba(76, 175, 80, 0.8);
+  color: white;
+}
+
+.flash-message.error {
+  background-color: rgba(244, 67, 54, 0.8);
+  color: white;
+}
+
+.close-btn {
+  cursor: pointer;
+}
+
+/* Login container styling */
+.login-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Login box styling */
+.login-box {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  padding: 50px 30px;
+  width: 400px;
+  max-width: 90%;
+  text-align: center;
+  transform: translateY(100%);
+  animation: slideUp 1.2s ease-out forwards;
+}
+
+/* Login box animation */
+@keyframes slideUp {
+  from {
+      transform: translateY(100%);
+  }
+  to {
+      transform: translateY(0);
+  }
+}
+
+/* Title styling */
+.login-box h2 {
+  color: #fff;
+  font-size: 28px;
+  margin-bottom: 30px;
+}
+
+/* Input box styling */
+.input-box {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.input-box input {
+  width: 80%;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 15px;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  outline: none;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.input-box input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Options styling */
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+  font-size: 14px;
+  padding: 0 10%;
+}
+
+.options .remember-me {
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.options .remember-me input {
+  margin-right: 5px;
+}
+
+.options .forgot-password {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Login button styling */
+.login-btn {
+  background: rgba(255, 255, 255, 0.8);
+  color: #000;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 80%;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Register text styling */
+.login-box p {
+  margin-top: 20px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.login-box p a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Checkbox styling */
+.options input[type="checkbox"] {
+  accent-color: white;
+}
+
+
+
+/* Header styles */
+header {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.logo h1 {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(45deg, #00c6ff, #0072ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.nav-links a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Main container 
+.container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  position: relative;
+} */
+.container {
+  max-width: 400px; /* Adjust width */
+  margin: 100px auto; /* Centering */
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+  backdrop-filter: blur(10px); /* Blur effect */
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
+  border-radius: 15px; /* Rounded corners */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
+  text-align: center;
+  color: white; /* Ensure text is visible */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow */
+}
+
+
+/* Flash messages */
+.flash-messages {
+  position: fixed;
+  top: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 600px;
+  z-index: 1000;
+}
+
+.flash-message {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  animation: fadeIn 0.5s ease-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.flash-message.success {
+  background-color: rgba(46, 204, 113, 0.9);
+  color: white;
+  border-left: 4px solid #27ae60;
+}
+
+.flash-message.error {
+  background-color: rgba(231, 76, 60, 0.9);
+  color: white;
+  border-left: 4px solid #c0392b;
+}
+
+.close-btn {
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: transform 0.2s;
+}
+
+.close-btn:hover {
+  transform: scale(1.2);
+}
+
+/* Login container */
+.login-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Login box */
+.login-box {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  padding: 2.5rem 2rem;
+  width: 400px;
+  max-width: 90%;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+  animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-box h2 {
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  position: relative;
+}
+
+.login-box h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  border-radius: 3px;
+}
+
+/* Input styling */
+.input-box {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  font-size: 1rem;
+  color: white;
+  transition: all 0.3s;
+  outline: none;
+}
+
+.input-box input:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 3px rgba(0, 118, 255, 0.3);
+}
+
+.input-box input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Options styling */
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1.5rem 0;
+  font-size: 0.875rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+}
+
+.remember-me input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  background: rgba(255, 255, 255, 0.1);
+  width: 1rem;
+  height: 1rem;
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.remember-me input[type="checkbox"]:checked {
+  background: #0072ff;
+  border-color: #0072ff;
+}
+
+.remember-me input[type="checkbox"]:checked::after {
+  content: '✓';
+  position: absolute;
+  color: white;
+  font-size: 0.7rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.forgot-password {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.forgot-password:hover {
+  color: #00c6ff;
+  text-decoration: underline;
+}
+
+/* Button styling */
+.login-btn {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 1rem;
+}
+
+.login-btn:hover {
+  background: linear-gradient(90deg, #0072ff, #00c6ff);
+  box-shadow: 0 10px 15px -3px rgba(0, 118, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.login-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 5px 10px -3px rgba(0, 118, 255, 0.4);
+}
+
+/* Register link */
+.login-box p {
+  margin-top: 1.5rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+}
+
+.login-box p a {
+  color: #00c6ff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.login-box p a:hover {
+  color: white;
+  text-decoration: underline;
+}
+/* Sidebar Styling */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -350px;
+  width: 350px;
+  height: 100%;
+  background: #18848e;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+  padding: 60px;
+  transition: right 0.3s ease-in-out;
+  overflow-y: auto;
+  z-index: 1000;
+  display: none;
+  
+}
+
+.sidebar.open {
+  display: block;
+  right: 0;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.toggle-sidebar-btn {
+  margin-top: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.toggle-sidebar-btn:hover {
+  background-color: #0056b3;
+}
+
+.transcription-card {
+  background: #100713;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.transcription-header h4 {
+  margin: 0;
+}
+
+.transcription-date {
+  font-size: 12px;
+  color: gray;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 20px;
+}
+
+/* Overlay for Sidebar */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
+}
+
+.overlay.active {
+  display: block;
+}
+
+/* Footer styles */
+/* Footer styling */
+footer {
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-content p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  nav {
+    padding: 1rem;
+  }
+  
+  .logo h1 {
+    font-size: 1.5rem;
+  }
+  
+  .nav-links {
+    gap: 0.5rem;
+  }
+  
+  .nav-links a {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.9rem;
+  }
+  
+  .login-box {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-links a span {
+    display: none;
+  }
+  
+  .nav-links a i {
+    font-size: 1.2rem;
+  }
+  
+  .login-box h2 {
+    font-size: 1.7rem;
+  }
+  
+  .options {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Audio - Speech to Text App{% endblock %}
+
+{% block content %}
+<section class="upload-section">
+    <h2 class="section-title">Upload Audio File</h2>
+    <div class="upload-container">
+        <form action="{{ url_for('upload_audio') }}" method="post" enctype="multipart/form-data">
+            <div class="upload-area" id="upload-area">
+                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                <p class="drag-text">Drag & drop your audio file here</p>
+                <span class="or-text">OR</span>
+                <label for="audio_file" class="btn secondary-btn">Choose File</label>
+                <input type="file" id="audio_file" name="audio_file" accept=".wav,.mp3,.ogg" hidden required>
+                <p class="file-name" id="file-name">No file chosen</p>
+                <small class="file-size-warning" id="file-size-warning"></small>
+            </div>
+
+            <div class="format-info">
+                <h4>Supported Formats:</h4>
+                <ul>
+                    <li>.wav</li>
+                    <li>.mp3</li>
+                    <li>.ogg</li>
+                </ul>
+            </div>
+
+            <button type="submit" class="btn primary-btn">Transcribe Audio</button>
+        </form>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('audio_file');
+        const fileName = document.getElementById('file-name');
+        const fileSizeWarning = document.getElementById('file-size-warning');
+        const maxFileSize = 10 * 1024 * 1024; // 10MB limit
+
+        // Handle file selection
+        fileInput.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                const file = this.files[0];
+
+                if (file.size > maxFileSize) {
+                    fileSizeWarning.textContent = "File too large! Max 10MB allowed.";
+                    fileName.textContent = "No file chosen";
+                    uploadArea.classList.remove('has-file');
+                    this.value = ""; // Reset file input
+                } else {
+                    fileSizeWarning.textContent = "";
+                    fileName.textContent = file.name;
+                    uploadArea.classList.add('has-file');
+                }
+            } else {
+                fileName.textContent = "No file chosen";
+                uploadArea.classList.remove('has-file');
+                fileSizeWarning.textContent = "";
+            }
+        });
+
+        // Drag & Drop Handlers
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', function() {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+
+            if (e.dataTransfer.files.length > 0) {
+                const file = e.dataTransfer.files[0];
+                const ext = file.name.split('.').pop().toLowerCase();
+
+                if (['wav', 'mp3', 'ogg'].includes(ext)) {
+                    if (file.size > maxFileSize) {
+                        fileSizeWarning.textContent = "File too large! Max 10MB allowed.";
+                        fileName.textContent = "No file chosen";
+                    } else {
+                        fileInput.files = e.dataTransfer.files;
+                        fileSizeWarning.textContent = "";
+                        fileName.textContent = file.name;
+                        uploadArea.classList.add('has-file');
+                    }
+                } else {
+                    alert("Invalid file type. Please upload a .wav, .mp3, or .ogg file.");
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

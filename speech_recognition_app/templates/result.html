@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Transcription Result - Speech to Text App{% endblock %}
+
+{% block content %}
+<section class="result-section">
+    <h2>Transcription Result</h2>
+    <div class="result-container">
+        <div class="transcription-box">
+            <div class="transcription-content">
+                {{ transcription }}
+            </div>
+        </div>
+        <div class="result-actions">
+            <button class="btn secondary-btn" id="copyBtn">
+                <i class="fas fa-copy"></i> Copy to Clipboard
+            </button>
+            <a href="{{ url_for('dashboard') }}" class="btn primary-btn">
+                <i class="fas fa-home"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById('copyBtn').addEventListener('click', function() {
+        const text = document.querySelector('.transcription-content').textContent;
+        navigator.clipboard.writeText(text)
+            .then(() => {
+                alert('Text copied to clipboard!');
+            })
+            .catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+    });
+</script>
+{% endblock %}
