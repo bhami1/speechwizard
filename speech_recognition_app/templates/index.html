@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Speech Wizard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
+</head>
+
+<body>
+    <!-- Header Navigation -->
+    <header>
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="#services">🆂🅴🆁🆅🅸🅲🅴🆂</a></li>
+                <li><a href="#about">🅰🅱🅾🆄🆃</a></li>
+                <li><a href="#reviews">🆁🅴🆅🅸🅴🆆🆂 </a></li>
+                <li><a href="#contacts">🅲🅾🅽🆃🅰🅲🆃🆂</a></li>
+                <li><a href="{{ url_for('login') }}"> L̳O̳G̳I̳N̳</a></li>
+                <li><a href="{{ url_for('signup') }}">S̳I̳G̳N̳U̳P̳</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Scroll to top button -->
+    <a href="#" class="scroll-top">
+        <span class="scroll-arrow">↑</span>
+    </a>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">SPEECH WIZARD</h1>
+            <p class="hero-text">
+                Transform your speech processing experience with our intuitive interface
+                designed for seamless interaction. Let's enhance communication,
+                streamline transcription, and empower your voice with every feature we offer.
+            </p>
+            <a href="{{ url_for('login') }}">
+                <button class="cta-button">
+                    Login/Signup to use SPEECH WIZARD
+                    <span class="cta-arrow">↑</span>
+                </button>
+            </a>
+        </div>
+        <div class="hero-image"></div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="banner-text">
+            SUPPORTING THE DEAF IN ENJOYING WHAT THEY HEAR THROUGH READING!
+        </div>
+        <div class="banner-subtext">A small stepping stone..</div>
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">2000</div>
+                <div class="stat-label">Active users</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">5000</div>
+                <div class="stat-label">Audio files processed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Years of innovation</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">20</div>
+                <div class="stat-label">Industry awards</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <h2 class="section-title">FEATURES OF SPEECH WIZARD</h2>
+        <p class="features-description">
+            From live recognition to comprehensive transcription history, we provide tools that cater to your speech needs.
+        </p>
+        <div class="features-container">
+            <div class="feature-item">
+                <h3 class="feature-title">LIVE SPEECH RECOGNITION</h3>
+                <p class="feature-description">
+                    Convert spoken words into text in real-time. Start and stop recording with a mic button, while recognized speech appears instantly.
+                </p>
+                <a href="#contact" class="contact-link">Contact <span class="arrow-icon">→</span></a>
+            </div>
+
+            <div class="feature-item">
+                <h3 class="feature-title">AUDIO FILE UPLOADS</h3>
+                <p class="feature-description">
+                    Upload audio in WAV, MP3, FLAC formats. Monitor progress and receive transcriptions promptly.
+                </p>
+                <a href="#contact" class="contact-link">Contact <span class="arrow-icon">→</span></a>
+            </div>
+
+            <div class="feature-item">
+                <h3 class="feature-title">TRANSCRIPTION HISTORY</h3>
+                <p class="feature-description">
+                    Access and search your transcription history. Filter by date or keyword and download transcripts with ease.
+                </p>
+                <a href="#contact" class="contact-link">Contact <span class="arrow-icon">→</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2>OUR SERVICES</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-microphone"></i></div>
+                    <h3>Speech Recognition</h3>
+                    <p>Advanced AI-powered recognition for multiple languages and accents.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-file-alt"></i></div>
+                    <h3>Transcription Services</h3>
+                    <p>Convert audio files to text with timestamps and speaker tags.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-language"></i></div>
+                    <h3>Multi-language Support</h3>
+                    <p>Transcribes over 40 languages with regional accent recognition.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-cogs"></i></div>
+                    <h3>Custom Integration</h3>
+                    <p>Use our API in your apps, websites, or custom software.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+<section id="reviews" class="reviews">
+    <div class="container">
+        <h2>WHAT OUR CLIENTS SAY</h2>
+        <div class="testimonial-slider">
+            <div class="testimonial active">
+                <p class="testimonial-text">Speech Wizard has revolutionized how I handle audio files. Their user-friendly interface and accurate transcriptions have saved me countless hours.</p>
+                <p class="client-name">Michael Johnson</p>
+            </div>
+            <div class="testimonial">
+                <p class="testimonial-text">As a journalist, accuracy is everything. Speech Wizard delivers perfect transcriptions every time, letting me focus on storytelling.</p>
+                <p class="client-name">Sarah Williams</p>
+            </div>
+            <div class="testimonial">
+                <p class="testimonial-text">Our medical practice depends on Speech Wizard. The accuracy and HIPAA compliance give us confidence, and the time savings are substantial.</p>
+                <p class="client-name">Dr. James Peterson</p>
+            </div>
+        </div> 
+        <div class="slider-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+
+    </div>
+</section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <h2 class="section-title">DISCOVER SPEECH WIZARD</h2>
+        <p class="about-subtitle">Empowering your voice through innovative technology</p>
+        <div class="divider"></div>
+        <div class="about-content">
+            <p>At Speech Wizard, we provide cutting-edge solutions for an enhanced speech recognition experience. From setup to transcription, our tech is built to serve with precision and reliability.</p>
+            <p>Whether it's meetings, interviews, or personal thoughts, we bring your voice to the forefront with a user-friendly experience.</p>
+        </div>
+        <div class="about-footer">
+            <h3 class="partner-text">YOUR RELIABLE SPEECH RECOGNITION PARTNER</h3>
+            <p class="established-text">since 2018</p>
+        </div>
+    </section>
+
+
+
+    <!-- CTA -->
+    <section class="cta-banner">
+        <div class="container">
+            <h2>ENHANCE YOUR SPEECH, ENHANCE YOUR LIFE.</h2>
+            <a href="#contact" class="cta-button">Get Started Today</a>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+<section id="contact" class="contact-form">
+    <div class="container">
+        <h2>GET IN TOUCH THROUGH FORM</h2>
+        <!-- Flash Messages -->
+        {% if get_flashed_messages() %}
+            <div class="flash-messages">
+                {% for category, message in get_flashed_messages(with_categories=true) %}
+                    <div class="{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <form id="contactForm" action="{{ url_for('contact') }}" method="POST">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="What's your name?" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="What's your email address?" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone" placeholder="What's your phone number?">
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" placeholder="What's the subject?">
+                </div>
+            </div>
+            <div class="form-group">
+                <textarea id="message" name="message" placeholder="Your message..." rows="5"></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send message</button>
+        </form>
+    </div>
+</section>
+
+    <!-- Contact Info -->
+    <section id="contacts" class="contacts">
+        <div class="container">
+            <h2>CONTACTS</h2>
+            <div class="contact-info">
+                <div class="contact-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>CONTACTS</h3>
+                    <p>support@hello.com</p>
+                    <p>+1-202-555-0127</p>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>LOCATION</h3>
+                    <p>3961 Small Street, New York</p>
+                    <p>United States</p>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>WORKING HOURS</h3>
+                    <p>Monday to Friday</p>
+                    <p>10 am to 7 pm</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-nav">
+                <a href="#services">Services</a>
+                <a href="#about">About</a>
+                <a href="#reviews">Reviews</a>
+                <a href="#contacts">Contacts</a>
+            </div>
+            <div class="copyright">
+                © All Rights Reserved. Speech Wizard
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const scrollBtn = document.querySelector('.scroll-top');
+            if (scrollBtn) {
+                scrollBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,71 +1,70 @@
-{% extends "base.html" %}
-
-{% block title %}Dashboard - Speech to Text App{% endblock %}
-
-{% block content %}
-<section class="dashboard-section">
-    <div class="welcome-banner">
-        <h2>👋 Welcome, {{ username }}!</h2>
-        <p>What would you like to do today?</p>
-        <div class="action-buttons">
-            <a href="{{ url_for('upload_audio') }}" class="btn feature-btn">
-                <i class="fas fa-upload"></i> 📤
-                <span>Upload Audio</span>
-            </a>
-            <a href="{{ url_for('record_audio') }}" class="btn feature-btn">
-                <i class="fas fa-microphone"></i> 🎙️
-                <span>Record Audio</span>
-            </a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Speech Wizard</title>
+    <link rel="stylesheet" href="../static/css/index.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header>
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('upload_audio') }}">Upload Audio</a></li>
+                <li><a href="{{ url_for('record_audio') }}">Record Audio</a></li>
+                <li><a href="{{ url_for('dashboard') }}">My Transcriptions</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
         </div>
-    </div>
+    </header>
 
-    <!-- Transcription Sidebar Toggle Button -->
-    <button class="btn toggle-sidebar-btn" onclick="openSidebar()">
-        <i class="fas fa-history"></i> 📜 View Transcription History
-    </button>
-
-    <!-- Transcription Sidebar -->
-    <div id="transcription-sidebar" class="sidebar">
-        <div class="sidebar-header">
-            <h3>📄 Your Transcription History</h3>
-            <button class="close-btn" onclick="closeSidebar()">❌</button>
-        </div>
-        <div class="sidebar-content">
-            {% if transcriptions %}
-                <div class="transcription-list">
-                    {% for transcription in transcriptions %}
-                    <div class="transcription-card">
-                        <div class="transcription-header">
-                            <h4>📝 {{ transcription[2] }}</h4>
-                            <span class="transcription-date">📅 {{ transcription[3] }}</span>
-                        </div>
-                        <div class="transcription-content">
-                            <p>{{ transcription[1] }}</p>
-                        </div>
-                        <div class="transcription-actions">
-                            <button class="btn secondary-btn copy-btn" onclick="copyText('{{ transcription[1] }}')">
-                                <i class="fas fa-copy"></i> 📋 Copy
-                            </button>
-                        </div>
-                    </div>
+    <section class="dashboard-section">
+        <div class="dashboard-container">
+            <h2 class="welcome-message">Welcome, {{ username }}!</h2>
+            
+            <!-- Flash Messages -->
+            {% if get_flashed_messages() %}
+                <div class="flash-messages">
+                    {% for category, message in get_flashed_messages(with_categories=true) %}
+                        <div class="{{ category }}">{{ message }}</div>
                     {% endfor %}
                 </div>
-            {% else %}
-                <div class="empty-state">
-                    <i class="fas fa-file-alt empty-icon"></i> ❌
-                    <p>No transcriptions yet!</p>
-                    <p>Try uploading an audio file or recording your voice. 🎤</p>
-                </div>
             {% endif %}
+            
+            <div class="dashboard-actions">
+                <a href="{{ url_for('upload_audio') }}" class="dashboard-btn">Upload Audio File</a>
+                <a href="{{ url_for('record_audio') }}" class="dashboard-btn">Record Live Audio</a>
+            </div>
+            
+            <div class="transcription-history">
+                <h3>Your Transcription History</h3>
+                
+                {% if transcriptions %}
+                    <table class="transcriptions-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Source</th>
+                                <th>Transcription</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for id, text, source, date in transcriptions %}
+                                <tr>
+                                    <td>{{ date }}</td>
+                                    <td>{{ source }}</td>
+                                    <td>{{ text }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="no-transcriptions">You don't have any transcriptions yet.</p>
+                {% endif %}
+            </div>
         </div>
-    </div>
-
-    <!-- Sidebar Overlay (to close when clicking outside) -->
-    <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
-</section>
-{% endblock %}
-
-{% block scripts %}
-<script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
-{% endblock %}
-
+    </section>
+</body>
+</html>

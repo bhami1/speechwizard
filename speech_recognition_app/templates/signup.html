@@ -1,33 +1,48 @@
-{% extends "base.html" %}
-
-{% block title %}Sign Up - Speech to Text App{% endblock %}
-
-{% block content %}
-<section class="auth-section">
-    <div class="auth-container">
-        <h2>Create an Account</h2>
-        <form action="{{ url_for('signup') }}" method="post">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Speech Wizard</title>
+    <link rel="stylesheet" href="../static/css/index.css">
+</head>
+<body>
+    <section class="signup-section">
+        <div class="signup-container">
+            <h2 class="signup-title">CREATE ACCOUNT</h2>
+            
+            <!-- Flash Messages -->
+            {% if get_flashed_messages() %}
+                <div class="flash-messages">
+                    {% for category, message in get_flashed_messages(with_categories=true) %}
+                        <div class="{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <form method="POST" action="{{ url_for('signup') }}">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required>
+                </div>
+                <button type="submit" class="signup-btn">Create Account</button>
+            </form>
+            <div class="login-link">
+                Already have an account? <a href="{{ url_for('login') }}">Login</a>
             </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <div class="form-group">
-                <label for="confirm_password">Confirm Password</label>
-                <input type="password" id="confirm_password" name="confirm_password" required>
-            </div>
-            <button type="submit" class="btn primary-btn">Sign Up</button>
-        </form>
-        <div class="auth-links">
-            <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
         </div>
-    </div>
-</section>
-{% endblock %}
+    </section>
+</body>
+</html>

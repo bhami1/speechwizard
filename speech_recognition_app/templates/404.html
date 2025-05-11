@@ -1,0 +1,17 @@
+<!-- File: 404.html -->
+<!-- This is a new file to be created for handling 404 errors -->
+
+{% extends "base.html" %}
+
+{% block title %}Page Not Found - Speech Wizard{% endblock %}
+
+{% block content %}
+<section class="error-section">
+    <div class="error-container">
+        <h1>404</h1>
+        <h2>Page Not Found</h2>
+        <p>The page you're looking for doesn't exist or has been moved.</p>
+        <a href="{{ url_for('index') }}" class="btn primary-btn">Return to Home</a>
+    </div>
+</section>
+{% endblock %}

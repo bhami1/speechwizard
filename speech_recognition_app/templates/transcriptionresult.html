@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transcription Result - Speech Wizard</title>
+    <link rel="stylesheet" href="../static/css/index.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header>
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('upload_audio') }}">Upload Audio</a></li>
+                <li><a href="{{ url_for('record_audio') }}">Record Audio</a></li>
+                <li><a href="{{ url_for('dashboard') }}">My Transcriptions</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="result-section">
+        <div class="result-container">
+            <h2 class="result-title">TRANSCRIPTION RESULT</h2>
+            
+            <div class="transcription-box">
+                <h3>Your Transcription:</h3>
+                <div class="transcription-text">{{ transcription }}</div>
+            </div>
+            
+            <div class="result-actions">
+                <a href="{{ url_for('upload_audio') }}" class="action-btn">Upload Another Audio</a>
+                <a href="{{ url_for('record_audio') }}" class="action-btn">Record Another Audio</a>
+                <a href="{{ url_for('dashboard') }}" class="action-btn">Return to Dashboard</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

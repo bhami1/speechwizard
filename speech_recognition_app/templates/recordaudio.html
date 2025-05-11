@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Record Audio - Speech Wizard</title>
+    <link rel="stylesheet" href="../static/css/index.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header>
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('upload_audio') }}">Upload Audio</a></li>
+                <li><a href="{{ url_for('record_audio') }}">Record Audio</a></li>
+                <li><a href="{{ url_for('dashboard') }}">My Transcriptions</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="record-section">
+        <div class="record-container">
+            <h2 class="record-title">RECORD LIVE AUDIO</h2>
+            
+            <div class="recording-interface">
+                <div class="record-instructions">
+                    <p>Click the microphone button to start recording. Click again to stop and transcribe.</p>
+                </div>
+                
+                <div class="record-controls">
+                    <button id="recordButton" class="record-btn">
+                        <i class="fas fa-microphone"></i> Start Recording
+                    </button>
+                    <div id="recordingStatus" class="recording-status">Not recording</div>
+                </div>
+                
+                <div id="transcriptionResult" class="transcription-result">
+                    <h3>Transcription Result:</h3>
+                    <div id="resultText" class="result-text"></div>
+                </div>
+            </div>
+            
+            <div class="return-link">
+                <a href="{{ url_for('dashboard') }}">Return to Dashboard</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let mediaRecorder;
+            let audioChunks = [];
+            const recordButton = document.getElementById('recordButton');
+            const recordingStatus = document.getElementById('recordingStatus');
+            const resultText = document.getElementById('resultText');
+            let isRecording = false;
+            
+            recordButton.addEventListener('click', function() {
+                if (!isRecording) {
+                    startRecording();
+                } else {
+                    stopRecording();
+                }
+            });
+            
+            async function startRecording() {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    audioChunks = [];
+                    
+                    mediaRecorder.addEventListener('dataavailable', event => {
+                        audioChunks.push(event.data);
+                    });
+                    
+                    mediaRecorder.addEventListener('stop', async () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                        await sendAudioToServer(audioBlob);
+                    });
+                    
+                    mediaRecorder.start();
+                    isRecording = true;
+                    recordButton.innerHTML = '<i class="fas fa-stop"></i> Stop Recording';
+                    recordingStatus.textContent = 'Recording...';
+                    recordingStatus.style.color = '#ffc107';
+                } catch (err) {
+                    console.error('Error accessing microphone:', err);
+                    alert('Error accessing your microphone. Please make sure you have a microphone connected and have granted permission to use it.');
+                }
+            }
+            
+            function stopRecording() {
+                if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                    mediaRecorder.stop();
+                    isRecording = false;
+                    recordButton.innerHTML = '<i class="fas fa-microphone"></i> Start Recording';
+                    recordingStatus.textContent = 'Processing audio...';
+                    
+                    // Stop all audio tracks
+                    mediaRecorder.stream.getTracks().forEach(track => track.stop());
+                }
+            }
+            
+            async function sendAudioToServer(audioBlob) {
+                try {
+                    const formData = new FormData();
+                    formData.append('audio_data', audioBlob);
+                    
+                    recordingStatus.textContent = 'Sending to server...';
+                    
+                    const response = await fetch('{{ url_for("process_recording") }}', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.error) {
+                        resultText.textContent = `Error: ${data.error}`;
+                        recordingStatus.textContent = 'Error processing audio';
+                        recordingStatus.style.color = 'red';
+                    } else {
+                        resultText.textContent = data.transcription;
+                        recordingStatus.textContent = 'Transcription complete';
+                        recordingStatus.style.color = 'green';
+                    }
+                } catch (err) {
+                    console.error('Error sending audio to server:', err);
+                    resultText.textContent = 'Error connecting to server. Please try again.';
+                    recordingStatus.textContent = 'Error';
+                    recordingStatus.style.color = 'red';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

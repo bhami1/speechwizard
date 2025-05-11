@@ -3,3 +3,4 @@ SpeechRecognition==3.10.0
 pydub==0.25.1
 PyAudio==0.2.13
 Werkzeug==2.3.7
+flask_mail 

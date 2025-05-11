@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Audio - Speech Wizard</title>
+    <link rel="stylesheet" href="../static/css/index.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header>
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('upload_audio') }}">Upload Audio</a></li>
+                <li><a href="{{ url_for('record_audio') }}">Record Audio</a></li>
+                <li><a href="{{ url_for('dashboard') }}">My Transcriptions</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="upload-section">
+        <div class="upload-container">
+            <h2 class="upload-title">UPLOAD AUDIO FILE</h2>
+            
+            <!-- Flash Messages -->
+            {% if get_flashed_messages() %}
+                <div class="flash-messages">
+                    {% for category, message in get_flashed_messages(with_categories=true) %}
+                        <div class="{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <div class="upload-instructions">
+                <p>Upload your audio file (WAV, MP3, OGG) to get a transcription.</p>
+            </div>
+            
+            <form method="POST" action="{{ url_for('upload_audio') }}" enctype="multipart/form-data">
+                <div class="form-group upload-form-group">
+                    <input type="file" id="audio_file" name="audio_file" accept=".wav,.mp3,.ogg" required>
+                </div>
+                <button type="submit" class="upload-btn">Transcribe Audio</button>
+            </form>
+            
+            <div class="return-link">
+                <!-- Remove or replace this incorrect link -->
+                <!-- <a href="transcriptionresult.html">Show result</a> -->
+            </div>
+        </div>
+    </section>
+</body>
+</html>
